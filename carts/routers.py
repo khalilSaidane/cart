@@ -18,7 +18,6 @@ class CartView:
 
     @cart_router.post("/{user_id}", response_model=Cart)
     def init_cart(self, user_id: int):
-        self.cart_service.get_user_carts(user_id)
         return self.cart_service.initialise_cart(user_id)
 
     @cart_router.get("/{user_id}", response_model=List[Cart])
