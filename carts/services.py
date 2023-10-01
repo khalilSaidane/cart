@@ -16,10 +16,10 @@ class CartService(BaseService):
         self.cart_repository = cart_repository
 
     def initialise_cart(self, user_id: int) -> Optional[Cart]:
-        self._check_existing_open_cart(user_id)
+        self._assert_does_not_have_open_cart(user_id)
         return self.cart_repository.create_cart(user_id)
 
-    def _check_existing_open_cart(self, user_id):
+    def _assert_does_not_have_open_cart(self, user_id):
         open_cart_exists = self.cart_repository.search_cart(user_id, [CartStatus.OPEN])
         if len(open_cart_exists):
             raise OpenCartAlreadyExistsForUser(user_id)
